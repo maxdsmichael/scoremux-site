@@ -1,0 +1,14 @@
+ScoreMux website music artwork
+
+All visible notation is rasterized from real sheet-music PDFs. No AI-generated notation is used.
+
+Hero folio and marking demonstration:
+H.M.S. Pinafore, Arthur Sullivan (1878), Cornets 1 + 2, PDF pages 2–4.
+Source: ScoreMux public-domain sample collection, samples/pinafore/Cornets 1 + 2.pdf.
+
+Part-book demonstration:
+Selections from The Maid and the Mummy, R. H. Bowers (1904), flute, clarinet 1 and trumpet 1 parts.
+Source: IMSLP public-domain scans, ScoreMux sample collection, samples/maid-and-mummy/.
+IMSLP953286 (flute), IMSLP953287 (clarinet 1), IMSLP953288 (trumpet 1).
+
+The short names in the contents and set-list demonstrations are illustrative interface labels. The displayed score artwork remains the credited public-domain music.
