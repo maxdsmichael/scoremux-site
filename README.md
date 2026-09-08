@@ -1,17 +1,36 @@
 # ScoreMux website
 
-Static public pages. The animated product page is at `/app/ai/`.
-The root, privacy, and support pages retain their existing content.
+Static public pages for scoremux.com, scoremux.app, and scoremux.ai.
+The animated product page is at `/` on each domain. The former `/app/ai/`
+preview path redirects to `/`. Privacy and support keep their existing content.
 
 ## Local work
 
 - `npm install`
-- `npm run dev` — local preview; open `/app/ai/`.
+- `npm run dev` — local preview; open `/`.
 - `npm run check` — JavaScript syntax check.
 - `npm run build` — validates referenced page assets and copies the static site into `dist/`.
 
 There is no server component and no upload, account, or analytics service.
 Fonts and animation libraries are served locally.
+
+## Deployment
+
+The domains are served by the existing Cloudflare Worker `scoremux-placeholder`.
+The historical name is retained so deployments replace the existing site.
+`wrangler.jsonc` maps all three domain roots to the same static `dist/` build.
+The GitHub Pages deployment and old Cloudflare Pages projects are not the live
+custom-domain origin.
+
+After signing in with `npx wrangler login`, run `npm run deploy`. The command
+checks JavaScript, runs the toy tests, builds the site, and publishes it.
+Credentials stay in Wrangler's local login storage and are not part of this repo.
+No Worker application code or backend service is needed: Cloudflare serves the
+HTML, scripts, fonts, and score images as static assets. `_redirects` sends the
+legacy `/app/ai` and `/app/ai/` preview links to `/`.
+
+The previous placeholder version is `87efb50f-307c-4888-90cd-5d0357e77d8c`.
+Cloudflare retains Worker versions for rollback.
 
 ## Product page
 
@@ -45,7 +64,8 @@ If WebGL is unavailable, the hero shows the actual score pages as a static fallb
   invitations individually.
 - Contents/set-list titles are illustrative; the rendered music is credited
   public-domain material. Website demos do not parse or upload visitors' files.
-- This branch is for review. Creating it does not authorize publishing the site.
+- Public rollout to all three domain roots was authorized on 2026-09-08.
+  The earlier `/app/ai/` path was a misunderstanding of domain shorthand.
 
 ## Included libraries
 
