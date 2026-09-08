@@ -39,3 +39,8 @@ body.motion-paused .recognition-lens,body.motion-paused .scan-beam{display:none}
 .ink-overlay .cue-arrow{stroke-width:3.5}
 .ink-overlay .play-out{fill:#ed265c;font:bold italic 21px Georgia,serif}
 .ink-overlay .courtesy-accidental{fill:none;stroke:#307de4;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* The border pulse uses the same beat callback as the metronome lights. */
+.metronome-glow{position:absolute;inset:-1px;border:1px solid #f2cd73;border-radius:inherit;pointer-events:none;opacity:0;box-shadow:0 0 13px 2px #ffbf4560,0 0 34px 7px #ffb30024,inset 0 0 16px #ffbf451a}
+.motion-paused .metronome-glow{display:none}
+@media(prefers-reduced-motion:reduce){.metronome-glow{display:none}}

@@ -4,6 +4,8 @@ const faders=[...host.querySelectorAll('.fader-lane input')],listen=host.querySe
 const range=host.querySelector('#tempo-range'),output=host.querySelector('#tempo-value'),tap=host.querySelector('#tap-tempo');
 let bpm=120,playing=false,starting=false,taps=[],startId=0,light=-1,context=null,engine=null,timer=null,beats=[],routeAudio=null,routeURL=null;
 const mixer=host.querySelector('#mixer'),expert=host.querySelector('#expert-toggle');
+const glow=host.querySelector('.metronome-glow'),reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let glowPulse=null;
 expert.addEventListener('click',()=>{const open=expert.getAttribute('aria-expanded')!=='true';mixer.classList.toggle('is-open',open);mixer.inert=!open;expert.setAttribute('aria-expanded',String(open));expert.innerHTML=open?'Close the rhythm mixer <span>−</span>':'Open the rhythm mixer <span>+</span>';setTimeout(()=>window.ScrollTrigger?.refresh(),700);});
 function setBpm(value){if(!Number.isFinite(value))return;bpm=Math.max(40,Math.min(220,Math.round(value)));range.value=bpm;output.textContent=bpm;document.querySelector('.tempo-ghost').textContent=bpm;engine?.setTempo(bpm);}
 range.addEventListener('input',()=>{taps=[];setBpm(+range.value);});
@@ -49,7 +51,14 @@ function start(){
 }
 listen.addEventListener('click',start);
 faders.forEach(f=>f.addEventListener('input',()=>{status.textContent=playing&&faders.every(f=>+f.value===0)?'All rhythm levels are muted.':'';}));
-function pulse(beat){if(beat===light)return;light=beat;host.querySelectorAll('.beat-lights span').forEach((el,i)=>el.classList.toggle('active',i===beat));}
+function pulse(beat){
+  if(beat===light)return;light=beat;
+  host.querySelectorAll('.beat-lights span').forEach((el,i)=>el.classList.toggle('active',i===beat));
+  glowPulse?.cancel();
+  if(glow&&!reducedMotion.matches&&!document.body.classList.contains('motion-paused')){
+    glowPulse=glow.animate([{opacity:0},{opacity:beat===0?.65:.42,offset:.13},{opacity:0}],{duration:Math.min(600,60000/bpm*.9),easing:'ease-out'});
+  }
+}
 function frame(ms){
   requestAnimationFrame(frame);if(document.hidden)return;
   if(playing&&context){let audible=context.currentTime;const timestamp=context.getOutputTimestamp?.();if(timestamp?.contextTime>0)audible=timestamp.contextTime+(performance.now()-timestamp.performanceTime)/1000;
