@@ -2,7 +2,7 @@ ScoreMux website music artwork
 
 All visible notation is rasterized from real sheet-music PDFs. No AI-generated notation is used.
 
-Hero folio and marking demonstration:
+Marking demonstration:
 H.M.S. Pinafore, Arthur Sullivan (1878), Cornets 1 + 2, PDF pages 2–4.
 Source: ScoreMux public-domain sample collection, samples/pinafore/Cornets 1 + 2.pdf.
 
@@ -12,3 +12,40 @@ Source: IMSLP public-domain scans, ScoreMux sample collection, samples/maid-and-
 IMSLP953286 (flute), IMSLP953287 (clarinet 1), IMSLP953288 (trumpet 1).
 
 The short names in the contents and set-list demonstrations are illustrative interface labels. The displayed score artwork remains the credited public-domain music.
+
+Hero folio, floating pages, closing folio, and song-finding demonstration:
+# Public-domain score assets
+
+Downloaded and verified 2026-09-08. All JPGs are direct Poppler rasterizations of published Mutopia PDFs, without edits to the notation. Each image is 1391 x 1800 pixels. First page of each PDF contains music and a readable title; Für Elise page 2 is consecutive with page 1.
+
+## Beethoven: Für Elise, WoO 59
+- Image: score-fur-elise.jpg
+- Consecutive second page: score-fur-elise-page2.jpg
+- PDF: beethoven-fur-elise.pdf
+- Catalog: https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=931
+- Download: https://www.mutopiaproject.org/ftp/BeethovenLv/WoO59/fur_Elise_WoO59/fur_Elise_WoO59-let.pdf
+- Edition source: Breitkopf & Härtel, 1888.
+- Typesetter: Stelios Samelis; Mutopia-2015/08/18-931.
+- Catalog explicitly labels copyright Public Domain. First PDF page also contains a dedication from the typesetter into the public domain.
+
+## Bach: Prelude in C major, BWV 846
+- Image: score-bach-prelude.jpg
+- PDF: bach-prelude-c-major.pdf
+- Catalog: https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=5
+- Download: https://www.mutopiaproject.org/ftp/BachJS/BWV846/wtk1-prelude1/wtk1-prelude1-let.pdf
+- Printed title: Das Wohltemperierte Clavier I / Prelude 1. The composer and BWV 846 appear at upper right.
+- Typesetter: Tobias Erbsland; Mutopia-2011/09/12-5.
+- Catalog explicitly labels copyright Public Domain. Page 1 has a Public Domain footer; the final PDF page states that the typesetter placed the sheet music in the public domain. Historical engraving source is listed as Unknown; permission for this modern typesetting is explicitly established by its dedication.
+
+## Mozart: Eine kleine Nachtmusik, K.525, first movement
+- Image: score-eine-kleine.jpg
+- PDF: mozart-eine-kleine.pdf
+- Catalog: https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=2230
+- Download archive: https://www.mutopiaproject.org/ftp/MozartWA/KV525/MozartWA-KV525/MozartWA-KV525-let-pdfs.zip
+- File extracted from archive: MozartWA-KV525-mov-01-let.pdf
+- Edition source: Breitkopf & Härtel, 1883.
+- Typesetter: Mike Blackstock; Mutopia-2018/08/04-2230.
+- Catalog explicitly labels copyright Public Domain. First PDF page also contains a dedication from the typesetter into the public domain.
+
+## Reuse terms
+https://www.mutopiaproject.org/legal.html explains that the Public Domain label means the contributor dedicated their contribution to the public domain, permitting distribution, changes, sales, and performance. None of these three selected editions needs Creative Commons attribution or share-alike compliance. A courtesy credit to Mutopia and the typesetters remains useful provenance.

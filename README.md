@@ -20,6 +20,10 @@ score PDFs. The floating pages and score demonstrations also use real notation.
 See `assets/ai/music-credits.txt` for source provenance. Generated book images were
 rejected during review and are not included in the site.
 
+The song-finding sequence reveals real Beethoven, Bach, and Mozart pages from
+highlighted contents entries, keeps them in a vertical column, then gathers copies
+back-to-front with the first song on top. Reduced motion shows the completed order.
+
 GSAP controls scroll-linked motion and the recognition, marking, borrowing, and
 set-list demonstrations. The metronome demo has nine adjustable subdivision lanes
 and optional Web Audio sound; no audio starts until the visitor clicks Listen.

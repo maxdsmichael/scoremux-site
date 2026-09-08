@@ -11,7 +11,7 @@ if(root){
  renderer.domElement.setAttribute('aria-hidden','true');
  scene.add(new THREE.HemisphereLight(0xffffff,0xa594c9,2.7));const main=new THREE.DirectionalLight(0xffffff,3);main.position.set(-2,5,8);scene.add(main);const rim=new THREE.PointLight(0x48daff,12,8);rim.position.set(.1,1.7,1.3);scene.add(rim);const violet=new THREE.PointLight(0x9270ff,8,9);violet.position.set(-3,-2,1);scene.add(violet);
  const folio=new THREE.Group();scene.add(folio);folio.rotation.set(-.28,-.2,.16);
- const loader=new THREE.TextureLoader();const paths=['score-left.png','score-cornet.png'];let loaded=0;
+ const loader=new THREE.TextureLoader();const paths=['score-fur-elise.jpg','score-fur-elise-page2.jpg'];let loaded=0;
  const textures=paths.map(p=>loader.load('/assets/ai/'+p,texture=>{texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());loaded++;if(loaded>=2)root.classList.add('folio-loaded');},undefined,()=>{}));
  function paperGeometry(side,z=0){const g=new THREE.PlaneGeometry(2.15,3.05,36,40);const pos=g.attributes.position;for(let i=0;i<pos.count;i++){const x=pos.getX(i)+side*1.085;const y=pos.getY(i);const u=Math.abs(x)/2.16;pos.setXYZ(i,x,y,z+.16*Math.sin(u*Math.PI)+.055*u*u+.025*Math.cos(y*1.2)*u);}g.computeVertexNormals();return g;}
  const pages=[];

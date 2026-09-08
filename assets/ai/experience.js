@@ -14,12 +14,8 @@ if(gs&&!reduce.matches){
 
  gs.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1,onUpdate:s=>state.heroProgress=s.progress}}).to('.hero-line.first',{xPercent:-20,opacity:0,ease:'none'},0).to('.hero-line.second',{xPercent:20,opacity:0,ease:'none'},0).to('.hero-book-wrap',{scale:.65,yPercent:-5,rotation:-8,ease:'none'},0).to('.hero-caption',{opacity:0,y:-60,ease:'none'},.1).to('.hero-eyebrow',{opacity:0},0);
 }
-let recognition;
-function recognitionPlay(){if(!gs||state.paused)return;recognition?.kill();recognition=gs.timeline();recognition.fromTo('.found-row',{opacity:.2,x:50},{opacity:1,x:0,stagger:.27,duration:.5,ease:'power3.out'},.1).fromTo('.recognition-lens',{y:-65,x:-30},{y:160,x:40,duration:2.5,ease:'sine.inOut'},0).fromTo('.scan-beam',{y:-70,opacity:0},{y:160,opacity:1,duration:2.3},0).fromTo('.confirm-line',{opacity:.2},{opacity:1,duration:.5},2.2);}
-if(ST&&!reduce.matches)ST.create({trigger:'.recognition-stage',start:'top 70%',onEnter:recognitionPlay,onEnterBack:recognitionPlay});
-document.querySelector('[data-replay="recognition"]').addEventListener('click',recognitionPlay);
 const canvas=document.querySelector('#music-universe'),ctx=canvas.getContext('2d',{alpha:true});
-const page=new Image();page.src='/assets/ai/score-page.jpg';let w=0,h=0,dpr=1,last=0;let visible=true;
+const page=new Image();page.src='/assets/ai/score-fur-elise.jpg';let w=0,h=0,dpr=1,last=0;let visible=true;
 function resize(){const rect=canvas.getBoundingClientRect();w=rect.width;h=rect.height;dpr=Math.min(devicePixelRatio||1,1.6);canvas.width=w*dpr;canvas.height=h*dpr;ctx?.setTransform(dpr,0,0,dpr,0,0);}
 resize();window.addEventListener('resize',resize,{passive:true});
 document.addEventListener('pointermove',e=>{state.pointerX=(e.clientX/innerWidth-.5)*2;state.pointerY=(e.clientY/innerHeight-.5)*2;},{passive:true});
