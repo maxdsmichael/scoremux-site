@@ -47,6 +47,8 @@ motion shows the completed book. Animation direction is not marketing copy.
 GSAP controls scroll-linked motion and the recognition, marking, borrowing, and
 set-list demonstrations. The metronome demo has nine adjustable subdivision lanes
 and optional Web Audio clicks; no audio starts until the visitor clicks Listen.
+The mixer starts expanded at 120 BPM, with whole-note and quarter-note clicks
+active and all other subdivisions muted.
 Each click is scheduled against AudioContext.currentTime with a lookahead queue.
 Tempo and mixer changes do not reload media or restart a bar. Tap tempo averages
 the last six taps. Rhythm symbols use the bundled Petaluma font.
