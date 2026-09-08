@@ -1,0 +1,48 @@
+@font-face{font-family:Petaluma;src:url('/assets/ai/Petaluma.otf') format('opentype');font-display:swap}
+.markup-stage{height:auto;min-height:620px;display:flex;flex-direction:column;justify-content:center;gap:0;padding:35px 0 65px;perspective:none}
+.markup-stage .score-window{width:100%;max-width:1050px;transform:none;border:1px solid #1c2439;border-radius:16px;overflow:hidden;background:#121b2b;box-shadow:0 35px 65px #21134250}
+.markup-stage .reader-bar{font:15px -apple-system,BlinkMacSystemFont,'DM Sans',sans-serif;padding:18px 22px;background:#121b2b;color:#ecf3ff;align-items:center}
+.reader-bar small{font-size:12px;color:#94a6bf;margin-left:15px}
+.markup-stage .reader-mode{border-radius:18px;padding:7px 18px;background:#88dcff20;color:#88dcff;font:13px 'DM Sans',sans-serif}
+.markup-stage .annotated-score{aspect-ratio:auto;height:310px;background:#f5f1e5;cursor:crosshair}
+.rehearsal-score{display:block;width:100%;height:100%;overflow:hidden;touch-action:pan-y}
+.rehearsal-score image{mix-blend-mode:multiply}
+.rehearsal-score .ink-stroke{stroke:#ed265c;stroke-width:3;stroke-dasharray:none;stroke-dashoffset:0}
+.rehearsal-score .cue-arrow{stroke-width:3}
+.rehearsal-score .play-out{fill:#ed265c;font:bold italic 21px Georgia,serif}
+.music-glyph{font-family:Petaluma;font-weight:400}
+.rehearsal-score .courtesy-accidental{fill:#307de4;stroke:none}
+.demo-highlight{fill:none;stroke:#ead246;stroke-width:17;stroke-linecap:round;opacity:0;mix-blend-mode:multiply}
+.demo-shape{fill:none;stroke:#3887e6;stroke-width:2;opacity:0}
+.reader-zoom{display:flex;align-items:center;gap:20px;background:#121b2b;color:#8fa5bd;padding:11px 20px;font:12px -apple-system,BlinkMacSystemFont,sans-serif}
+.reader-zoom button{margin-left:auto;background:#ffffff0c;color:#daeaff;border-radius:14px;padding:6px 12px;font-size:12px}
+.edit-toolbox{font-family:-apple-system,BlinkMacSystemFont,'DM Sans',sans-serif;position:relative;width:min(590px,94%);margin-top:-1px;color:#ecf3ff;background:#121b2bf5;backdrop-filter:blur(22px);border:1px solid #88dcff35;border-radius:0 0 26px 26px;box-shadow:0 25px 40px #21134240;z-index:5;overflow:hidden;--active-color:#4f4d47}
+.edit-header{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid #ffffff17;min-height:66px}
+.toolbox-grip{color:#7890a8;font-size:21px;padding:0 4px}
+.tool-active-color{height:30px;width:4px;flex:none;border-radius:3px;background:var(--active-color)}
+.edit-header>div{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.edit-header strong{font-size:15px;font-weight:600}
+.edit-header #edit-tool-instruction{font-size:12px;color:#a1b1c7;line-height:1.3}
+.edit-header button{border-radius:24px;background:#ffffff0c;color:inherit;padding:11px 13px;font-size:12px;white-space:nowrap}
+.edit-tool-row,.extra-draw-tools{display:flex;gap:4px;justify-content:center;padding:10px 8px}
+.edit-toolbox [hidden]{display:none!important}
+.edit-toolbox [data-draw]{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;min-width:0;flex:1;max-width:72px;min-height:70px;padding:7px 3px;background:none;color:inherit;font:12px -apple-system,BlinkMacSystemFont,'DM Sans',sans-serif;border:1px solid transparent;border-radius:15px}
+.edit-toolbox [data-draw].selected{background:color-mix(in srgb,var(--tool-color) 20%,transparent);border-color:color-mix(in srgb,var(--tool-color) 55%,transparent)}
+.tool-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(145deg,color-mix(in srgb,var(--tool-color) 85%,white),var(--tool-color));position:relative}
+.tool-icon svg{width:21px;height:21px;stroke:white;stroke-width:1.7;fill:none;stroke-linejoin:round;stroke-linecap:round}
+[data-draw="highlighter"] .tool-icon svg{stroke:#191b20}
+[data-draw].selected .tool-icon:after{content:'✓';position:absolute;bottom:-3px;right:-4px;background:#e5f1ff;color:#121b2b;border-radius:50%;width:15px;height:15px;font:bold 11px/15px sans-serif}
+.tool-properties{display:flex;align-items:center;gap:12px;padding:0 18px 14px;font-size:12px;flex-wrap:wrap}
+.tool-properties label,.tool-properties button{display:flex;align-items:center;gap:8px;min-height:35px;background:#ffffff0a;border-radius:10px;padding:6px 10px;color:inherit;font-size:12px}
+.tool-color input{width:24px;height:24px;padding:0;border:0;background:none;cursor:pointer}
+.tool-width input{width:70px;accent-color:#88dcff}
+.tool-properties button{margin-left:auto}
+.extra-draw-tools{border-top:1px solid #ffffff17;justify-content:flex-start;padding-left:18px}
+.stamp-chooser{padding:0 18px 15px}
+.stamp-chooser>div:first-child{display:flex;align-items:baseline;justify-content:space-between;margin:4px 0 12px}
+.stamp-chooser strong{font-size:19px}.stamp-chooser>div>span{font-size:13px;color:#88dcff}
+.stamp-options{display:flex;gap:8px}
+.stamp-options button{flex:1;background:#88dcff0a;border:1px solid #88dcff26;color:#eaf4ff;border-radius:12px;font-size:12px;padding:10px;display:flex;align-items:center;justify-content:center;gap:20px;min-height:56px}
+.stamp-options .music-glyph{font-size:34px;line-height:1}
+.stamp-options button.selected{background:#88dcff25;border-color:#88dcff}
+@media(max-width:600px){.markup-stage{min-height:0;padding:15px 0 30px}.markup-stage .score-window{margin-top:0;border-radius:12px}.markup-stage .reader-bar{padding:13px;font-size:13px}.reader-bar small{display:block;margin:5px 0 0;font-size:12px}.markup-stage .annotated-score{height:235px}.reader-zoom{padding:9px 12px;gap:12px}.reader-zoom-value{display:none}.edit-toolbox{width:100%;border-radius:0 0 20px 20px}.edit-header{padding:10px;gap:7px}.edit-header #edit-tool-instruction{font-size:12px}.toolbox-grip{display:none}.edit-tool-row{gap:2px;padding:8px 5px;flex-wrap:wrap}.edit-toolbox [data-draw]{min-width:calc(20% - 4px);max-width:none;min-height:66px;flex:1}.edit-tool-row [data-draw="text"],.edit-tool-row [data-draw="line"]{display:none}.tool-properties{padding:0 10px 12px;gap:6px}.tool-properties label,.tool-properties button{padding:6px 8px}.tool-width input{width:45px}.edit-header button{padding:10px}.extra-draw-tools{flex-wrap:wrap}.extra-draw-tools [data-draw]{max-width:calc(25% - 4px)}.stamp-options button{gap:12px;padding:8px}}

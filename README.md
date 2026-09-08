@@ -50,3 +50,19 @@ If WebGL is unavailable, the hero shows the actual score pages as a static fallb
   https://gsap.com/standard-license/.
 - Three.js (MIT), license in `assets/ai/licenses/three.txt`.
 - Anton, DM Sans, and Space Mono fonts, licenses in `assets/ai/licenses/`.
+
+## Markup demo source (2026-09-08)
+
+The web demonstration follows the current local app implementation in
+`/Users/maxmichael/Documents/scoremux/ScoreMux/Sources/Views/`:
+`EditToolbox.swift`, `ReaderView+RadialMenus.swift`, `PencilCaseStrip.swift`, and
+`StampToolbox.swift`. It is a guided web demonstration, not an app screenshot.
+The primary Pencil / Highlight / Eraser / Stamps / Text / Lines row, compact
+layout, Tools entry, tool colors, active-tool instructions, and Color / Width
+settings come from those views. Marker and Shape appear under Tools.
+
+The courtesy flat uses the app's bundled Petaluma font and the `accidentalFlat`
+SMuFL entry from `Resources/markings/glyph_palette.json`: U+E260, sized at four
+staff spaces per em. The font's OFL is included in `assets/ai/licenses/petaluma.txt`.
+The first two opening measures are crossed out; on phones the score pans from
+those measures to the courtesy accidental and fortissimo cue.

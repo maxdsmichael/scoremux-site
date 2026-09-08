@@ -30,27 +30,17 @@ function frame(ms){requestAnimationFrame(frame);if(!ctx||!visible||document.hidd
 requestAnimationFrame(frame);setMotion(reduce.matches);
 // These interactions illustrate the musician's actions. No PDF leaves this page.
 const replayButtons=document.querySelectorAll('[data-replay]');
-let markTimeline,borrowTimeline,setTimeline;
-function markPlay(kind){if(!gs)return;markTimeline?.kill();document.querySelectorAll('[data-mark]').forEach(b=>{b.classList.toggle('selected',b.dataset.mark===kind);b.setAttribute('aria-pressed',String(b.dataset.mark===kind));});
- if(state.paused){gs.set('.scribble,.cue-arrow',{strokeDashoffset:0});gs.set('.play-out,.courtesy-accidental',{opacity:1,scale:1,x:0,y:0});return;}
- markTimeline=gs.timeline();
- if(!kind||kind==='scribble')markTimeline.fromTo('.scribble',{strokeDashoffset:1200},{strokeDashoffset:0,duration:1.1,ease:'none'},0);
- if(!kind||kind==='cue')markTimeline.fromTo('.cue-arrow',{strokeDashoffset:260},{strokeDashoffset:0,duration:.65},kind?0:.9).fromTo('.play-out',{opacity:0},{opacity:1,duration:.5,ease:'power2.out'},kind?0:.9);
- if(!kind||kind==='flat')markTimeline.fromTo('.courtesy-accidental',{x:24,y:-28,opacity:0},{x:0,y:0,opacity:1,duration:.7,ease:'power3.out'},kind?0:1.7);
-}
-document.querySelectorAll('[data-mark]').forEach(b=>b.addEventListener('click',()=>markPlay(b.dataset.mark)));
+let borrowTimeline,setTimeline;
 function borrowPlay(){if(!gs)return;borrowTimeline?.kill();const stamp=document.querySelector('.borrow-stamp');if(state.paused){stamp.innerHTML='PASSAGE<br>IN PLACE.';return;}borrowTimeline=gs.timeline({onComplete:()=>{stamp.innerHTML='PASSAGE<br>IN PLACE.';}});const stage=document.querySelector('.borrow-stage');const distance=stage.clientWidth*.43;borrowTimeline.fromTo('.source-selection',{opacity:.3},{opacity:1,duration:.35,repeat:1,yoyo:true}).fromTo('.flying-passage',{x:0,y:0,rotation:-12,opacity:0,scale:1},{opacity:1,duration:.2}).to('.flying-passage',{x:distance,y:130,rotation:10,scale:1.05,duration:1.2,ease:'power3.inOut'}).to('.flying-passage',{opacity:0,duration:.2}).fromTo('.target-selection',{boxShadow:'0 0 0px #b49aff00',backgroundColor:'#a46dec25'},{boxShadow:'0 0 35px #b49aff70',backgroundColor:'#a46dec60',duration:.6,yoyo:true,repeat:1},'-=.2');}
 document.querySelector('#borrow-demo').addEventListener('click',borrowPlay);
 function setPlay(){if(!gs)return;setTimeline?.kill();const check=document.querySelector('.set-check');if(state.paused){check.textContent='Songs matched. Check your set.';return;}check.textContent='Finding your songs…';setTimeline=gs.timeline({onComplete:()=>check.textContent='Songs matched. Check your set.'});setTimeline.fromTo('.smudge-trail',{y:-30,scaleX:.2,opacity:0},{y:300,scaleX:1,opacity:1,duration:2.2,ease:'power1.inOut'},0).fromTo('.set-group.one .set-label',{scaleX:.2},{scaleX:1,duration:.35},.2).fromTo('.set-group.two .set-label',{scaleX:.2},{scaleX:1,duration:.35},1.1).fromTo('.set-item',{x:0},{x:24,stagger:.12,duration:.3,yoyo:true,repeat:1,ease:'power2.inOut'},.2).fromTo('.chart-match',{opacity:.15,scale:.8,x:-80},{opacity:1,scale:1,x:0,duration:.7,stagger:.22,ease:'back.out(1.4)'},.8).to('.smudge-trail',{opacity:0,duration:.5},2.2).to('.set-item i',{opacity:1,stagger:.1,duration:.2},1.8);}
-replayButtons.forEach(b=>{if(b.dataset.replay==='markup')b.addEventListener('click',()=>markPlay());if(b.dataset.replay==='setlist')b.addEventListener('click',setPlay);});
+replayButtons.forEach(b=>{if(b.dataset.replay==='setlist')b.addEventListener('click',setPlay);});
 if(gs&&ST&&!reduce.matches){
  document.querySelectorAll('.feature-heading h2,.books-copy h2,.pit-heading h2,.closing-copy h2,.rehearsal-copy h2').forEach(el=>gs.from(el,{y:65,rotation:2,opacity:.2,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',toggleActions:'play none none reverse'}}));
- gs.fromTo('.score-window',{rotation:-7,y:60},{rotation:2,y:-30,ease:'none',scrollTrigger:{trigger:'.markup-stage',start:'top bottom',end:'bottom top',scrub:1}});
- gs.to('.mark-orbit-text',{xPercent:-20,ease:'none',scrollTrigger:{trigger:'.markup-stage',start:'top bottom',end:'bottom top',scrub:1}});
  gs.fromTo('.borrow-source',{rotation:-18,y:20},{rotation:-7,y:-40,ease:'none',scrollTrigger:{trigger:'.books-story',start:'top 80%',end:'bottom top',scrub:1}});
  gs.fromTo('.borrow-target',{rotation:15,y:40},{rotation:6,y:-20,ease:'none',scrollTrigger:{trigger:'.books-story',start:'top 80%',end:'bottom top',scrub:1}});
  gs.fromTo('.closing-book',{rotation:24,y:120},{rotation:10,y:-50,ease:'none',scrollTrigger:{trigger:'.closing-section',start:'top bottom',end:'bottom bottom',scrub:1.5}});
- ST.create({trigger:'.markup-stage',start:'top 65%',onEnter:()=>markPlay()});ST.create({trigger:'.borrow-stage',start:'top 55%',onEnter:borrowPlay});ST.create({trigger:'.set-stage',start:'top 60%',onEnter:setPlay});
+ ST.create({trigger:'.borrow-stage',start:'top 55%',onEnter:borrowPlay});ST.create({trigger:'.set-stage',start:'top 60%',onEnter:setPlay});
 }
 const mixer=document.querySelector('#mixer'),expertButton=document.querySelector('#expert-toggle');let mixerTouched=false;
 function toggleMixer(open){mixer.classList.toggle('is-open',open);mixer.inert=!open;expertButton.setAttribute('aria-expanded',String(open));expertButton.innerHTML=open?'Close the rhythm mixer <span>−</span>':'Open the rhythm mixer <span>+</span>';if(ST)setTimeout(()=>ST.refresh(),700);}
