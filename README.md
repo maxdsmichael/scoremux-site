@@ -35,9 +35,14 @@ legacy `/app/ai` and `/app/ai/` preview links to `/`.
 keeps its existing proxied placeholder A record and `scoremux.app/*` Worker
 route. Its Universal SSL certificate was confirmed active on 2026-09-08.
 HTTPS checks of `.com` and `.ai` verified the root page, current toy scripts,
-fonts, score artwork, support/privacy pages, and legacy redirects. The local
-network timed out connecting to `.app` even before deployment; its public
-connection still needs confirmation from another device/network.
+fonts, score artwork, support/privacy pages, and legacy redirects. `.app` was
+also verified on an iPad 5G tether on 2026-09-08: HTTP 200, current metronome
+script and font bytes, expanded mixer, border glow, and legacy path redirect.
+The previous `.app` timeout was isolated to the home network/ISP path: its DNS
+returned an unrelated address, while public DNS and the 5G connection returned
+the correct Cloudflare addresses. An independent SSL Labs check also received
+HTTP 200 with a trusted certificate. No hosting change was needed for this fix;
+the specific home/ISP filtering component has not yet been identified.
 
 The previous placeholder version is `87efb50f-307c-4888-90cd-5d0357e77d8c`.
 Cloudflare retains Worker versions for rollback.
