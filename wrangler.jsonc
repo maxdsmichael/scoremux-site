@@ -18,8 +18,8 @@
       "custom_domain": true
     },
     {
-      "pattern": "scoremux.app",
-      "custom_domain": true
+      "pattern": "scoremux.app/*",
+      "zone_name": "scoremux.app"
     }
   ]
 }
