@@ -21,8 +21,9 @@ See `assets/ai/music-credits.txt` for source provenance. Generated book images w
 rejected during review and are not included in the site.
 
 The song-finding sequence reveals real Beethoven, Bach, and Mozart pages from
-highlighted contents entries, keeps them in a vertical column, then gathers copies
-back-to-front with the first song on top. Reduced motion shows the completed order.
+highlighted contents entries into a compact spread, then brings them together
+in the same space. Portrait layouts keep the contents above the music. Reduced
+motion shows the completed book. Animation direction is not marketing copy.
 
 GSAP controls scroll-linked motion and the recognition, marking, borrowing, and
 set-list demonstrations. The metronome demo has nine adjustable subdivision lanes
