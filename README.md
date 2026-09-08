@@ -11,8 +11,10 @@ preview path redirects to `/`. Privacy and support keep their existing content.
 - `npm run check` — JavaScript syntax check.
 - `npm run build` — validates referenced page assets and copies the static site into `dist/`.
 
-There is no server component and no upload, account, or analytics service.
-Fonts and animation libraries are served locally.
+There is no application server, upload service, or ScoreMux account.
+Fonts and animation libraries are served locally. Cloudflare has a pre-existing
+automatic Web Analytics setting for these domains; its injected beacon is
+configured in the dashboard rather than in this repository.
 
 ## Deployment
 
@@ -28,6 +30,14 @@ Credentials stay in Wrangler's local login storage and are not part of this repo
 No Worker application code or backend service is needed: Cloudflare serves the
 HTML, scripts, fonts, and score images as static assets. `_redirects` sends the
 legacy `/app/ai` and `/app/ai/` preview links to `/`.
+
+`scoremux.com` and `scoremux.ai` use Worker custom domains. `scoremux.app`
+keeps its existing proxied placeholder A record and `scoremux.app/*` Worker
+route. Its Universal SSL certificate was confirmed active on 2026-09-08.
+HTTPS checks of `.com` and `.ai` verified the root page, current toy scripts,
+fonts, score artwork, support/privacy pages, and legacy redirects. The local
+network timed out connecting to `.app` even before deployment; its public
+connection still needs confirmation from another device/network.
 
 The previous placeholder version is `87efb50f-307c-4888-90cd-5d0357e77d8c`.
 Cloudflare retains Worker versions for rollback.
@@ -48,7 +58,9 @@ GSAP controls scroll-linked motion and the recognition, marking, borrowing, and
 set-list demonstrations. The metronome demo has nine adjustable subdivision lanes
 and optional Web Audio clicks; no audio starts until the visitor clicks Listen.
 The mixer starts expanded at 120 BPM, with whole-note and quarter-note clicks
-active and all other subdivisions muted.
+active and all other subdivisions muted. A soft amber border pulse shares
+the lights' beat callback, including the audio-clock timing during playback,
+and respects reduced-motion and the page motion toggle.
 Each click is scheduled against AudioContext.currentTime with a lookahead queue.
 Tempo and mixer changes do not reload media or restart a bar. Tap tempo averages
 the last six taps. Rhythm symbols use the bundled Petaluma font.
