@@ -32,11 +32,11 @@ requestAnimationFrame(frame);setMotion(reduce.matches);
 const replayButtons=document.querySelectorAll('[data-replay]');
 let markTimeline,borrowTimeline,setTimeline;
 function markPlay(kind){if(!gs)return;markTimeline?.kill();document.querySelectorAll('[data-mark]').forEach(b=>{b.classList.toggle('selected',b.dataset.mark===kind);b.setAttribute('aria-pressed',String(b.dataset.mark===kind));});
- if(state.paused){gs.set('.scribble,.cue-arrow',{strokeDashoffset:0});gs.set('.play-here,.courtesy-flat',{opacity:1,scale:1});gs.set('.mark-hand',{opacity:0});return;}
+ if(state.paused){gs.set('.scribble,.cue-arrow',{strokeDashoffset:0});gs.set('.play-out,.courtesy-accidental',{opacity:1,scale:1,x:0,y:0});return;}
  markTimeline=gs.timeline();
  if(!kind||kind==='scribble')markTimeline.fromTo('.scribble',{strokeDashoffset:1200},{strokeDashoffset:0,duration:1.1,ease:'none'},0);
- if(!kind||kind==='cue')markTimeline.fromTo('.cue-arrow',{strokeDashoffset:260},{strokeDashoffset:0,duration:.65},kind?0:.9).fromTo('.play-here',{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:'back.out(2)'},kind?0:.9);
- if(!kind||kind==='flat')markTimeline.fromTo('.courtesy-flat',{x:130,y:-80,scale:1.8,opacity:0},{x:0,y:0,scale:1,opacity:1,duration:1,ease:'power3.inOut'},kind?0:1.7).fromTo('.mark-hand',{x:130,y:-80,opacity:1},{x:0,y:0,opacity:0,duration:1},kind?0:1.7);
+ if(!kind||kind==='cue')markTimeline.fromTo('.cue-arrow',{strokeDashoffset:260},{strokeDashoffset:0,duration:.65},kind?0:.9).fromTo('.play-out',{opacity:0},{opacity:1,duration:.5,ease:'power2.out'},kind?0:.9);
+ if(!kind||kind==='flat')markTimeline.fromTo('.courtesy-accidental',{x:24,y:-28,opacity:0},{x:0,y:0,opacity:1,duration:.7,ease:'power3.out'},kind?0:1.7);
 }
 document.querySelectorAll('[data-mark]').forEach(b=>b.addEventListener('click',()=>markPlay(b.dataset.mark)));
 function borrowPlay(){if(!gs)return;borrowTimeline?.kill();const stamp=document.querySelector('.borrow-stamp');if(state.paused){stamp.innerHTML='PASSAGE<br>IN PLACE.';return;}borrowTimeline=gs.timeline({onComplete:()=>{stamp.innerHTML='PASSAGE<br>IN PLACE.';}});const stage=document.querySelector('.borrow-stage');const distance=stage.clientWidth*.43;borrowTimeline.fromTo('.source-selection',{opacity:.3},{opacity:1,duration:.35,repeat:1,yoyo:true}).fromTo('.flying-passage',{x:0,y:0,rotation:-12,opacity:0,scale:1},{opacity:1,duration:.2}).to('.flying-passage',{x:distance,y:130,rotation:10,scale:1.05,duration:1.2,ease:'power3.inOut'}).to('.flying-passage',{opacity:0,duration:.2}).fromTo('.target-selection',{boxShadow:'0 0 0px #b49aff00',backgroundColor:'#a46dec25'},{boxShadow:'0 0 35px #b49aff70',backgroundColor:'#a46dec60',duration:.6,yoyo:true,repeat:1},'-=.2');}
