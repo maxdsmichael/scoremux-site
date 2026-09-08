@@ -46,3 +46,20 @@
 .stamp-options .music-glyph{font-size:34px;line-height:1}
 .stamp-options button.selected{background:#88dcff25;border-color:#88dcff}
 @media(max-width:600px){.markup-stage{min-height:0;padding:15px 0 30px}.markup-stage .score-window{margin-top:0;border-radius:12px}.markup-stage .reader-bar{padding:13px;font-size:13px}.reader-bar small{display:block;margin:5px 0 0;font-size:12px}.markup-stage .annotated-score{height:235px}.reader-zoom{padding:9px 12px;gap:12px}.reader-zoom-value{display:none}.edit-toolbox{width:100%;border-radius:0 0 20px 20px}.edit-header{padding:10px;gap:7px}.edit-header #edit-tool-instruction{font-size:12px}.toolbox-grip{display:none}.edit-tool-row{gap:2px;padding:8px 5px;flex-wrap:wrap}.edit-toolbox [data-draw]{min-width:calc(20% - 4px);max-width:none;min-height:66px;flex:1}.edit-tool-row [data-draw="text"],.edit-tool-row [data-draw="line"]{display:none}.tool-properties{padding:0 10px 12px;gap:6px}.tool-properties label,.tool-properties button{padding:6px 8px}.tool-width input{width:45px}.edit-header button{padding:10px}.extra-draw-tools{flex-wrap:wrap}.extra-draw-tools [data-draw]{max-width:calc(25% - 4px)}.stamp-options button{gap:12px;padding:8px}}
+/* The visitor's ink shares the PDF's coordinate system, including after zooming. */
+.rehearsal-score.drawing-enabled{touch-action:none;user-select:none;-webkit-user-select:none}
+.score-annotations{pointer-events:none}
+.tool-properties select,.tool-properties input[type="text"]{font:13px -apple-system,BlinkMacSystemFont,sans-serif;background:#202e44;border:1px solid #88dcff30;border-radius:6px;color:#ecf3ff;padding:6px;max-width:160px;min-width:0}
+.tool-properties .text-option{flex:1 1 100%}.text-option input{flex:1;max-width:none!important}
+#markup-undo:disabled{opacity:.4;cursor:default}
+#markup-clear{margin-left:0}
+.fader-lane>.rhythm-glyph:first-child{font:32px/1 Petaluma!important;color:var(--amber);height:44px;display:flex;justify-content:center;align-items:center;position:relative}
+.rhythm-glyph .music-glyph{font-size:32px;line-height:1}
+.rhythm-glyph sub{position:absolute;right:-9px;bottom:0;font:12px/1 'DM Sans',sans-serif}
+#tap-tempo{display:flex;align-items:center;justify-content:center;gap:18px;width:100%;margin-top:22px;border:1px solid #ffcd5040;border-radius:14px;padding:17px;color:var(--amber);background:#ffb3000c;touch-action:manipulation}
+#tap-tempo>span{font-size:18px}#tap-tempo small{font:12px 'Space Mono';color:#c4af80}
+#tap-tempo.tapped{animation:tap-flash .22s ease-out}
+@keyframes tap-flash{from{background:#ffbf3c50;transform:scale(.985)}to{background:#ffb3000c;transform:scale(1)}}
+.metronome-demo .audio-status{font-size:14px;color:#ffd078;line-height:1.45;margin:12px 0 0}
+.metronome-demo .audio-status:empty{display:none}
+@media(max-width:600px){.fader-lane>.rhythm-glyph:first-child{font-size:28px!important}.rhythm-glyph .music-glyph{font-size:28px}.rhythm-glyph sub{right:-5px;font-size:11px}.tool-properties{flex-wrap:wrap}.tool-properties .tool-width{flex:1}.tool-properties select{max-width:115px}#tap-tempo{padding:15px;gap:12px}}
