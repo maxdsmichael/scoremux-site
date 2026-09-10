@@ -83,8 +83,12 @@ again, or they keep the old preview.
 `robots.txt` allows every crawler and names `sitemap.xml`, which lists the
 three pages. Cloudflare adds its own content signal block in front of
 `robots.txt`. `404.html` is the page for a missing address, served by Wrangler
-through `not_found_handling`. The hero canvas stays hidden until the textured
-book is ready, then it crossfades with the static pages.
+through `not_found_handling`. The hero canvas stays hidden until both music
+textures have been drawn, then fades in. Static pages appear only if JavaScript
+or the 3D view is unavailable; they are not a loading placeholder. The loaded
+canvas rule retains the `#folio-3d` specificity so it overrides the hidden state.
+After a graphics context is restored, a fresh frame must be drawn before the
+animated book replaces the fallback again.
 
 ## Product page
 

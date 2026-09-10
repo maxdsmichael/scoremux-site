@@ -9,7 +9,7 @@ function setMotion(value){state.paused=value;document.body.classList.toggle('mot
 motion.addEventListener('click',()=>setMotion(!state.paused));reduce.addEventListener('change',e=>setMotion(e.matches));
 if(gs&&!reduce.matches){
  gs.from('.hero-line',{yPercent:40,opacity:0,rotation:3,duration:1.3,stagger:.13,ease:'power4.out'});
- gs.from('.hero-book-wrap',{y:90,opacity:0,duration:1.7,delay:.25,ease:'power3.out'});
+ // The folio handles its own reveal after the first textured frame is drawn.
  gs.to('.hero-book',{y:-14,rotation:1.5,duration:3.8,yoyo:true,repeat:-1,ease:'sine.inOut'});
 
  gs.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1,onUpdate:s=>state.heroProgress=s.progress}}).to('.hero-line.first',{xPercent:-20,opacity:0,ease:'none'},0).to('.hero-line.second',{xPercent:20,opacity:0,ease:'none'},0).to('.hero-book-wrap',{scale:.65,yPercent:-5,rotation:-8,ease:'none'},0).to('.hero-caption',{opacity:0,y:-60,ease:'none'},.1).to('.hero-eyebrow',{opacity:0},0);

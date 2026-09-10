@@ -1,7 +1,9 @@
-import * as THREE from './vendor/three.module.min.js';
 // Genuine PDF page textures on gently curved paper. No generated notation.
 const root=document.querySelector('#folio-3d');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+function showFallback(){root.classList.remove('folio-loaded');root.classList.add('folio-fallback');}
+async function mountFolio(){
+ const THREE=await import('./vendor/three.module.min.js');
 if(root){
  let renderer;
  try{renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});}catch{root.classList.add('folio-fallback');}
@@ -15,8 +17,41 @@ if(root){
  // Print-strength ink for the stand: the page is shown at a fraction of its size, so each stroke is
  // widened by one pixel and the ink is pulled to black before the texture is built. The source JPG
  // files and the notation are not changed.
- function inkTexture(url,done){const img=new Image();img.onload=()=>{const W=Math.round(img.naturalWidth/2),H=Math.round(img.naturalHeight/2);const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0,W,H);const s=ctx.getImageData(0,0,W,H).data;const lum=new Uint8ClampedArray(W*H);for(let i=0,j=0;i<lum.length;i++,j+=4)lum[i]=(s[j]*77+s[j+1]*151+s[j+2]*28)>>8;const out=ctx.createImageData(W,H),o=out.data;for(let y=0;y<H;y++){const y0=y>0?y-1:y,y1=y<H-1?y+1:y;for(let x=0;x<W;x++){const x0=x>0?x-1:x,x1=x<W-1?x+1:x;let m=255;for(let yy=y0;yy<=y1;yy++){const row=yy*W;for(let xx=x0;xx<=x1;xx++){const v=lum[row+xx];if(v<m)m=v;}}let v=(m-90)*2.04;v=v<0?0:v>255?255:v;const k=(y*W+x)*4;o[k]=o[k+1]=o[k+2]=v;o[k+3]=255;}}ctx.putImageData(out,0,0);const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=Math.min(16,renderer.capabilities.getMaxAnisotropy());done(tex);};img.onerror=()=>done(null);img.src=url;}
- paths.forEach((p,i)=>inkTexture('/assets/ai/'+p,tex=>{if(!tex)return;textures[i]=tex;if(pageMaterials[i]){pageMaterials[i].map=tex;pageMaterials[i].needsUpdate=true;}loaded++;if(loaded>=2)root.classList.add('folio-loaded');}));
+ function inkTexture(url,done){
+  const img=new Image();
+  img.onload=()=>{
+   let tex;
+   try{
+    const W=Math.round(img.naturalWidth/2),H=Math.round(img.naturalHeight/2);
+    const c=document.createElement('canvas');c.width=W;c.height=H;
+    const ctx=c.getContext('2d',{willReadFrequently:true});
+    ctx.drawImage(img,0,0,W,H);
+    const s=ctx.getImageData(0,0,W,H).data,lum=new Uint8ClampedArray(W*H);
+    for(let i=0,j=0;i<lum.length;i++,j+=4)lum[i]=(s[j]*77+s[j+1]*151+s[j+2]*28)>>8;
+    const out=ctx.createImageData(W,H),o=out.data;
+    for(let y=0;y<H;y++){
+     const y0=y>0?y-1:y,y1=y<H-1?y+1:y;
+     for(let x=0;x<W;x++){
+      const x0=x>0?x-1:x,x1=x<W-1?x+1:x;let m=255;
+      for(let yy=y0;yy<=y1;yy++)for(let xx=x0;xx<=x1;xx++)m=Math.min(m,lum[yy*W+xx]);
+      const v=Math.max(0,Math.min(255,(m-90)*2.04)),k=(y*W+x)*4;
+      o[k]=o[k+1]=o[k+2]=v;o[k+3]=255;
+     }
+    }
+    ctx.putImageData(out,0,0);tex=new THREE.CanvasTexture(c);
+   }catch{
+    // If canvas processing is unavailable, the original printed music still works.
+    tex=new THREE.Texture(img);tex.needsUpdate=true;
+   }
+   tex.colorSpace=THREE.SRGBColorSpace;
+   tex.anisotropy=Math.min(16,renderer.capabilities.getMaxAnisotropy());
+   done(tex);
+  };
+  img.onerror=()=>done(null);img.src=url;
+ }
+
+ let stopped=false,contextLost=false;
+ paths.forEach((p,i)=>inkTexture('/assets/ai/'+p,tex=>{if(!tex){stopped=true;showFallback();return;}textures[i]=tex;if(pageMaterials[i]){pageMaterials[i].map=tex;pageMaterials[i].needsUpdate=true;}loaded++;}));
  function paperGeometry(side,z=0){const g=new THREE.PlaneGeometry(2.15,3.05,36,40);const pos=g.attributes.position;for(let i=0;i<pos.count;i++){const x=pos.getX(i)+side*1.085;const y=pos.getY(i);const u=Math.abs(x)/2.16;pos.setXYZ(i,x,y,z+.16*Math.sin(u*Math.PI)+.055*u*u+.025*Math.cos(y*1.2)*u);}g.computeVertexNormals();return g;}
  const pages=[];
  for(const side of [-1,1]){
@@ -31,12 +66,20 @@ if(root){
  let visible=true,px=0,py=0,lastTime=0;new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;}).observe(root);
  const rect=()=>{const {width,height}=root.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.position.z=camera.aspect<1.2?10.6:8.9;camera.updateProjectionMatrix();};new ResizeObserver(rect).observe(root);rect();
  document.addEventListener('pointermove',e=>{if(reduced.matches||document.body.classList.contains('motion-paused'))return;px=(e.clientX/innerWidth-.5)*.2;py=(e.clientY/innerHeight-.5)*.16;},{passive:true});
- renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();root.classList.remove('folio-loaded');});renderer.domElement.addEventListener('webglcontextrestored',()=>root.classList.add('folio-loaded'));
- function animate(ms){requestAnimationFrame(animate);if(!visible||document.hidden)return;const paused=reduced.matches||document.body.classList.contains('motion-paused');const t=paused?lastTime:ms*.001;lastTime=t;folio.rotation.x+=((-.28+py+Math.sin(t*.45)*.025)-folio.rotation.x)*.04;folio.rotation.y+=((-.2+px+Math.sin(t*.28)*.07)-folio.rotation.y)*.04;folio.rotation.z=.12+Math.sin(t*.32)*.025;folio.position.y=Math.sin(t*.6)*.055;particles.rotation.z=t*.02;
+ renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;showFallback();});renderer.domElement.addEventListener('webglcontextrestored',()=>{contextLost=false;});
+ function animate(ms){if(stopped)return;requestAnimationFrame(animate);if(loaded<2||contextLost||!visible||document.hidden)return;const paused=reduced.matches||document.body.classList.contains('motion-paused');const t=paused?lastTime:ms*.001;lastTime=t;folio.rotation.x+=((-.28+py+Math.sin(t*.45)*.025)-folio.rotation.x)*.04;folio.rotation.y+=((-.2+px+Math.sin(t*.28)*.07)-folio.rotation.y)*.04;folio.rotation.z=.12+Math.sin(t*.32)*.025;folio.position.y=Math.sin(t*.6)*.055;particles.rotation.z=t*.02;
   for(const {mesh,base,side} of pages){const pos=mesh.geometry.attributes.position;for(let i=0;i<pos.count;i++){const x=base[i*3],y=base[i*3+1],u=Math.abs(x)/2.16;pos.setZ(i,base[i*3+2]+Math.pow(u,3)*.035*Math.sin(t*1.3+y*2+side));}pos.needsUpdate=true;mesh.geometry.computeVertexNormals();}
-  renderer.render(scene,camera);
+  try{
+   renderer.render(scene,camera);
+   // Reveal only a successfully drawn frame with both real music textures.
+   if(!renderer.getContext().isContextLost()&&!root.classList.contains('folio-loaded')){
+    root.classList.remove('folio-fallback');root.classList.add('folio-loaded');
+   }
+  }catch{stopped=true;showFallback();}
  }
  requestAnimationFrame(animate);
- window.addEventListener('pagehide',event=>{if(event.persisted)return;renderer.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();}});textures.forEach(t=>t?.dispose());},{once:true});
+ window.addEventListener('pagehide',event=>{if(event.persisted)return;stopped=true;renderer.dispose();scene.traverse(o=>{o.geometry?.dispose();if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material])m.dispose();}});textures.forEach(t=>t?.dispose());});
  }
 }
+}
+if(root)mountFolio().catch(showFallback);
