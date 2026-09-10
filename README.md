@@ -84,6 +84,10 @@ Tempo and mixer changes do not reload media or restart a bar. Tap tempo averages
 the last six taps. Rhythm symbols use the bundled Petaluma font.
 Motion respects reduced-motion preferences and has an explicit pause control.
 If WebGL is unavailable, the hero shows the actual score pages as a static fallback.
+The hero processes each page image once at load, on the device: every stroke is
+widened by one pixel and the ink is pulled to black before it becomes a texture,
+and the scene uses lower exposure and lights. This keeps the notation readable at
+hero size. The JPG files and the notation are not changed (2026-09-10).
 
 ## Decisions carried from the copy workshop (2026-09-07)
 
