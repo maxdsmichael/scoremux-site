@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ScoreMux social card</title>
+<!-- Source page for assets/ai/social-card.jpg (1200 x 630). Render it with the command in README.md, "Social card". -->
+<style>
+@font-face{font-family:Anton;src:url('/assets/ai/anton-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'DM Sans';src:url('/assets/ai/dm-sans-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'DM Sans';src:url('/assets/ai/dm-sans-latin-500-normal.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'Space Mono';src:url('/assets/ai/space-mono-latin-400-normal.woff2') format('woff2')}
+html,body{margin:0}
+body{width:1200px;height:630px;overflow:hidden;position:relative;color:#f0eedf;font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 72% 60%,#452c7355 0%,#26183355 38%,transparent 70%),linear-gradient(160deg,#161119,#121218)}
+.wordmark{position:absolute;left:64px;top:50px;font:500 30px 'DM Sans';letter-spacing:-.02em}
+.wordmark i{color:#36e3ef;font-style:normal;font-size:14px;vertical-align:top;margin-left:2px}
+.eyebrow{position:absolute;left:64px;top:152px;font:15px 'Space Mono';letter-spacing:.18em;color:#b49aff}
+h1{position:absolute;left:58px;top:182px;margin:0;font:400 132px/.92 Anton;text-transform:uppercase}
+h1 .a{color:#b49aff;display:block}h1 .b{color:#ff668e;display:block}h1 .b i{color:#36e3ef;font-style:normal}
+p{position:absolute;left:64px;top:452px;width:440px;margin:0;font:22px/1.4 'DM Sans'}
+.foot{position:absolute;left:64px;bottom:44px;font:14px 'Space Mono';letter-spacing:.15em;color:#b7b2c4}
+#folio-3d{position:absolute;right:-30px;top:10px;width:720px;aspect-ratio:1.2}
+</style></head><body>
+<div class="wordmark">scoremux<i>●</i></div>
+<div class="eyebrow">FOR IPAD AND IPHONE</div>
+<h1><span class="a">Use your</span><span class="b">music<i>.</i></span></h1>
+<p>Turn your PDF collection into living, digital sheet music.</p>
+<div class="foot">SCOREMUX.COM</div>
+<div id="folio-3d"></div>
+<script type="module" src="/assets/ai/folio.js"></script>
+</body></html>

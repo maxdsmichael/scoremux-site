@@ -60,6 +60,32 @@ The version before the 2026-09-10 deploy is `28c1745e-bcb5-4353-999e-9250cc91dbc
 (2026-09-08).
 Cloudflare retains Worker versions for rollback.
 
+## Social card, search, and missing pages (2026-09-10)
+
+Every page carries a canonical link to its `scoremux.com` address, a description,
+and Open Graph and Twitter tags. The shared image is
+`assets/ai/social-card.jpg` (1200 x 630). Its source is `scripts/social-card.html`,
+which draws the same folio as the hero. To render it again, start `npm run dev`,
+then run:
+
+```
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+  --disable-gpu --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars \
+  --window-size=1200,630 --timeout=9000 --screenshot=/tmp/social-card.png \
+  http://127.0.0.1:5173/scripts/social-card.html
+sips -s format jpeg -s formatOptions 82 /tmp/social-card.png --out assets/ai/social-card.jpg
+```
+
+Chrome keeps running after the screenshot because the page animates. Stop it
+by hand. After a deploy, ask Facebook and the other networks to read the page
+again, or they keep the old preview.
+
+`robots.txt` allows every crawler and names `sitemap.xml`, which lists the
+three pages. Cloudflare adds its own content signal block in front of
+`robots.txt`. `404.html` is the page for a missing address, served by Wrangler
+through `not_found_handling`. The hero canvas stays hidden until the textured
+book is ready, then it crossfades with the static pages.
+
 ## Product page
 
 The hero is a Three.js folio with curved pages textured from genuine public-domain
