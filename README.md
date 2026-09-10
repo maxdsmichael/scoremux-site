@@ -20,7 +20,8 @@ configured in the dashboard rather than in this repository.
 
 The domains are served by the existing Cloudflare Worker `scoremux-placeholder`.
 The historical name is retained so deployments replace the existing site.
-`wrangler.jsonc` maps all three domain roots to the same static `dist/` build.
+`wrangler.jsonc` maps the bare and `www` hosts of all three domains to the same
+static `dist/` build.
 The GitHub Pages deployment and old Cloudflare Pages projects are not the live
 custom-domain origin.
 
@@ -29,22 +30,34 @@ checks JavaScript, runs the toy tests, builds the site, and publishes it.
 Credentials stay in Wrangler's local login storage and are not part of this repo.
 No Worker application code or backend service is needed: Cloudflare serves the
 HTML, scripts, fonts, and score images as static assets. `_redirects` sends the
-legacy `/app/ai` and `/app/ai/` preview links to `/`.
+legacy `/app/ai` and `/app/ai/` preview links to `/`. `_headers` sets `charset=utf-8` on the credits and license
+text files, so accented names read correctly in the browser.
 
-`scoremux.com` and `scoremux.ai` use Worker custom domains. `scoremux.app`
-keeps its existing proxied placeholder A record and `scoremux.app/*` Worker
-route. Its Universal SSL certificate was confirmed active on 2026-09-08.
-HTTPS checks of `.com` and `.ai` verified the root page, current toy scripts,
-fonts, score artwork, support/privacy pages, and legacy redirects. `.app` was
-also verified on an iPad 5G tether on 2026-09-08: HTTP 200, current metronome
-script and font bytes, expanded mixer, border glow, and legacy path redirect.
-The previous `.app` timeout was isolated to the home network/ISP path: its DNS
-returned an unrelated address, while public DNS and the 5G connection returned
-the correct Cloudflare addresses. An independent SSL Labs check also received
-HTTP 200 with a trusted certificate. No hosting change was needed for this fix;
-the specific home/ISP filtering component has not yet been identified.
+All six hosts are Worker custom domains: `scoremux.com`, `scoremux.ai`, and
+`scoremux.app`, each with its `www` name. Wrangler creates the DNS records and
+the certificates on deploy. Do not add DNS records for these names by hand. A
+custom domain cannot share its name with another DNS record, and the deploy
+fails until that record is gone. On 2026-09-10 the `.app` zone route and its
+proxied placeholder A record (192.0.2.1) gave way to custom domains. Max deleted
+the placeholder in the dashboard before the deploy.
 
-The previous placeholder version is `87efb50f-307c-4888-90cd-5d0357e77d8c`.
+The `.app` domain looks broken from Max's home network only. There, UDP DNS for
+`scoremux.app` returns 18.204.152.241, a host that answers HTTP 204 and has no
+TLS. HTTPS to the correct Cloudflare address also times out for that name. The
+same query over TCP, or over DNS over HTTPS, returns the Cloudflare addresses,
+and `scoremux.com` loads through the same Cloudflare address. The filter sits in
+the home network path and is not a Cloudflare problem. Check `.app` from another
+network or from an outside checker.
+
+Verification on 2026-09-10 after version `055a80ff`: the `.com` and `.ai` hosts,
+bare and `www`, answered HTTP 200 with the Lulabean LLC footer and the support
+address, and no `admin@` address remained. The `/support/` and `/privacy/`
+pages passed the same check. The credits file served `charset=utf-8`. The `.app`
+hosts answered HTTP 200 through Cloudflare from an outside checker, and a reader
+service fetched the `scoremux.app` body with the new footer and About text.
+
+The version before the 2026-09-10 deploy is `28c1745e-bcb5-4353-999e-9250cc91dbce`
+(2026-09-08).
 Cloudflare retains Worker versions for rollback.
 
 ## Product page

@@ -14,12 +14,24 @@
       "custom_domain": true
     },
     {
+      "pattern": "www.scoremux.com",
+      "custom_domain": true
+    },
+    {
       "pattern": "scoremux.ai",
       "custom_domain": true
     },
     {
-      "pattern": "scoremux.app/*",
-      "zone_name": "scoremux.app"
+      "pattern": "www.scoremux.ai",
+      "custom_domain": true
+    },
+    {
+      "pattern": "scoremux.app",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.scoremux.app",
+      "custom_domain": true
     }
   ]
 }
