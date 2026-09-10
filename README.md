@@ -79,7 +79,7 @@ If WebGL is unavailable, the hero shows the actual score pages as a static fallb
 - Do not use the unapproved “Your music, wide awake” slogan.
 - Sync copy is limited to iPad and iPhone. Selective sync is a future discussion.
 - Early access opens a prefilled request to the site's existing
-  `admin@scoremux.com` address. No new alias has been created; Max chooses
+  `support@scoremux.com` address. No new alias has been created; Max chooses
   invitations individually.
 - Contents/set-list titles are illustrative; the rendered music is credited
   public-domain material. Website demos do not parse or upload visitors' files.

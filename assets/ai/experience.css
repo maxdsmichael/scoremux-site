@@ -44,3 +44,5 @@ body.motion-paused .recognition-lens,body.motion-paused .scan-beam{display:none}
 .metronome-glow{position:absolute;inset:-1px;border:1px solid #f2cd73;border-radius:inherit;pointer-events:none;opacity:0;box-shadow:0 0 13px 2px #ffbf4560,0 0 34px 7px #ffb30024,inset 0 0 16px #ffbf451a}
 .motion-paused .metronome-glow{display:none}
 @media(prefers-reduced-motion:reduce){.metronome-glow{display:none}}
+
+.about{padding:60px var(--pad) 0;max-width:820px}.about p{font-size:17px;line-height:1.55;color:#c4b9d5;margin:16px 0 0}.about a,.site-footer p a{color:var(--cream);border-bottom:1px solid var(--line)}.site-footer p{font-size:12px;color:var(--muted);margin:0}
